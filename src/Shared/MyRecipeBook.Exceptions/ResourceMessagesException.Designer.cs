@@ -99,9 +99,9 @@ namespace MyRecipeBook.Exceptions {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The password must be longer than 6 characteres..
         /// </summary>
-        public static string PASSWORD_CHARACTERES {
+        public static string PASSWORD_INVALID {
             get {
-                return ResourceManager.GetString("PASSWORD_CHARACTERES", resourceCulture);
+                return ResourceManager.GetString("PASSWORD_INVALID", resourceCulture);
             }
         }
         
