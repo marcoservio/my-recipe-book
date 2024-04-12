@@ -2,11 +2,11 @@
 using System.Text;
 
 namespace MyRecipeBook.Application.Services.Cryptography;
-public class PasswordEncrypter(string additionalKey) : IPasswordEncrypter
+public class PasswordEncripter(string additionalKey) : IPasswordEncripter
 {
     private readonly string _additionalKey = additionalKey;
 
-    public string Encrypt(string password)
+    public string Encript(string password)
     {
         var newPassword = $"{password}{_additionalKey}";
 

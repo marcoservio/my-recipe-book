@@ -30,11 +30,11 @@ public static class DependencyInjectionExtension
 
     private static void AddPasswordEncripter(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IPasswordEncrypter>(provider =>
+        services.AddScoped<IPasswordEncripter>(provider =>
         {
             var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
 
-            return new PasswordEncrypter(additionalKey);
+            return new PasswordEncripter(additionalKey);
         });
     }
 }
