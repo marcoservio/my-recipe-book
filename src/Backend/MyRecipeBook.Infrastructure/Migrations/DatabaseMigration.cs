@@ -1,6 +1,9 @@
 ﻿using Dapper;
 
+using FluentMigrator.Runner;
+
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 
 using MyRecipeBook.Domain.Enums;
 
@@ -9,12 +12,14 @@ using MySqlConnector;
 namespace MyRecipeBook.Infrastructure.Migrations;
 public static class DatabaseMigration
 {
-    public static void Migrate(DatabaseType databaseType, string connectionString)
+    public static void Migrate(DatabaseType databaseType, string connectionString, IServiceProvider serviceProvider)
     {
         if (databaseType == DatabaseType.MySQL)
             EnsureDatabaseCreatedMySQL(connectionString);
         else
             EnsureDatabaseCreatedSQLServer(connectionString);
+
+        MigrationDatabase(serviceProvider);
     }
 
     private static void EnsureDatabaseCreatedMySQL(string connectionString)
@@ -51,5 +56,14 @@ public static class DatabaseMigration
 
         if (!records.Any())
             connection.Execute($"CREATE DATABASE {databaseName}");
+    }
+
+    private static void MigrationDatabase(IServiceProvider serviceProvider)
+    {
+        var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+
+        runner.ListMigrations();
+
+        runner.MigrateUp();
     }
 }
