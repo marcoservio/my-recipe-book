@@ -24,6 +24,9 @@ public static class DependencyInjectionExtension
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
+        if (configuration.IsUnitTestEnviroment())
+            return;
+
         var databaseType = configuration.DatabaseType();
 
         if (databaseType == DatabaseType.MySQL)
