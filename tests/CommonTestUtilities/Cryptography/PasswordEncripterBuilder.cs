@@ -6,6 +6,6 @@ public class PasswordEncripterBuilder
 {
     public static IPasswordEncripter Build()
     {
-        return new PasswordEncripter("ABC1234");
+        return new PasswordEncripter("acb1234");
     }
 }
