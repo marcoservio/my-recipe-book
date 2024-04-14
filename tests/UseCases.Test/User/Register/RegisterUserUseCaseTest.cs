@@ -6,6 +6,7 @@ using CommonTestUtilities.Requests;
 using FluentAssertions;
 
 using MyRecipeBook.Application.UseCase.User.Register;
+using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
@@ -38,7 +39,7 @@ public class RegisterUserUseCaseTest
         Func<Task> act = async () => await useCase.Execute(request);
 
         (await act.Should().ThrowAsync<ErrorOnValidationException>())
-            .Where(e => e.ErrorMessages.Count.Equals(1) && 
+            .Where(e => e.ErrorMessages.Count.Equals(1) &&
             e.ErrorMessages.Contains(ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
     }
 
@@ -65,7 +66,7 @@ public class RegisterUserUseCaseTest
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
 
-        if (!string.IsNullOrWhiteSpace(email))
+        if (email.NotEmpty())
             readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
         return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), mapper, passwordEncripter, unitOfWork);
