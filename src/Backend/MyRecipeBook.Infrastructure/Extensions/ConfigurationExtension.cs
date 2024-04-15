@@ -14,7 +14,7 @@ public static class ConfigurationExtension
     {
         var databaseType = configuration.GetConnectionString("DatabaseType");
 
-        return (DatabaseType)Enum.Parse(typeof(DatabaseType), databaseType);
+        return (DatabaseType)Enum.Parse(typeof(DatabaseType), databaseType!);
     }
 
     public static string ConnectionString(this IConfiguration configuration)
@@ -22,8 +22,8 @@ public static class ConfigurationExtension
         var databaseType = configuration.DatabaseType();
 
         if (databaseType == Domain.Enums.DatabaseType.MySQL)
-            return configuration.GetConnectionString("ConnectionMySQLServer");
+            return configuration.GetConnectionString("ConnectionMySQLServer")!;
         else
-            return configuration.GetConnectionString("ConnectionSQLServer");
+            return configuration.GetConnectionString("ConnectionSQLServer")!;
     }
 }

@@ -24,6 +24,6 @@ public class UserRepository(MyRecipeBookDbContext context) : IUserWriteOnlyRepos
     {
         return await _context.Users
             .AsNoTracking()
-            .FirstOrDefaultAsync(user => user.Active && user.Equals(email) && user.Password.Equals(password));
+            .FirstOrDefaultAsync(user => user.Active && user.Email.Equals(email) && user.Password.Equals(password));
     }
 }
