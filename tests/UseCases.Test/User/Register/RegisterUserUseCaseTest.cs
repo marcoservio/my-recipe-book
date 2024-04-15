@@ -66,7 +66,7 @@ public class RegisterUserUseCaseTest
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
 
-        if (email.NotEmpty())
+        if (email!.NotEmpty())
             readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
         return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), mapper, passwordEncripter, unitOfWork);

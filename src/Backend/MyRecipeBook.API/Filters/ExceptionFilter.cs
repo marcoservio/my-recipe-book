@@ -21,12 +21,17 @@ public class ExceptionFilter : IExceptionFilter
 
     private static void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException)
+        if (context.Exception is InvalidLoginException)
+        {
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Result = new UnauthorizedObjectResult(new ResponseErroJson(context.Exception.Message));
+        }
+        else if (context.Exception is ErrorOnValidationException)
         {
             var exception = context.Exception as ErrorOnValidationException;
 
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            context.Result = new BadRequestObjectResult(new ResponseErroJson(exception.ErrorMessages));
+            context.Result = new BadRequestObjectResult(new ResponseErroJson(exception!.ErrorMessages));
         }
     }
 
