@@ -1,4 +1,5 @@
 ﻿namespace MyRecipeBook.Communication.Responses;
+
 public class ResponseErroJson
 {
     public IList<string> Errors { get; set; }

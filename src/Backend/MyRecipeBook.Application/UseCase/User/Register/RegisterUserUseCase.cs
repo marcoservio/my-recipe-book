@@ -31,7 +31,6 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
         user.Password = _passwordEncripter.Encript(request.Password);
 
         await _writeOnlyRepository.Add(user);
-
         await _unitOfWork.Commit();
 
         return new ResponseRegisterUserJson
@@ -43,18 +42,15 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
     private async Task Validate(RequestRegisterUserJson request)
     {
         var validator = new RegisterUserValidator();
-
         var result = validator.Validate(request);
 
         var emailExist = await _readOnlyRepository.ExistActiveUserWithEmail(request.Email);
-
         if (emailExist)
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
 
         if (!result.IsValid)
         {
             var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
-
             throw new ErrorOnValidationException(errorMessages);
         }
     }

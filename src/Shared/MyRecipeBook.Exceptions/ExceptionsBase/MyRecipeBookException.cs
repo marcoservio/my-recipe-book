@@ -1,4 +1,5 @@
 ﻿namespace MyRecipeBook.Exceptions.ExceptionsBase;
-public class MyRecipeBookException : Exception
+
+public class MyRecipeBookException(string message) : SystemException(message)
 {
 }
