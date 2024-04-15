@@ -45,6 +45,19 @@ public class DoLoginUseCaseTest
             .Where(e => e.Message.Equals(ResourceMessagesException.EMAIL_OR_PASSWORD_INVALID));
     }
 
+    [Fact]
+    public async Task Error_Email_Empty()
+    {
+        var request = RequestLoginJsonBuilder.Build();
+        request.Email = string.Empty;
+        var useCase = CreateUseCase();
+
+        Func<Task> act = async () => { await useCase.Execute(request); };
+
+        await act.Should().ThrowAsync<ErrorOnValidationException>()
+            .Where(e => e.ErrorMessages.Count.Equals(1) && e.ErrorMessages.Contains(ResourceMessagesException.EMAIL_EMPTY));
+    }
+
     private static DoLoginUseCase CreateUseCase(MyRecipeBook.Domain.Entities.User? user = null)
     {
         var passwordEncripter = PasswordEncripterBuilder.Build();
