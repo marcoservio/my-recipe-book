@@ -32,6 +32,8 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
 
         responseData.RootElement.GetProperty("name").GetString()
             .Should().NotBeNullOrWhiteSpace().And.Be(request.Name);
+        responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString()
+            .Should().NotBeNullOrWhiteSpace();
     }
 
     [Theory]

@@ -40,6 +40,8 @@ public class DoLoginTest(CustomWebApplicationFactory factory) : MyRecipeBookClas
 
         responseData.RootElement.GetProperty("name").GetString()
             .Should().NotBeNullOrWhiteSpace().And.Be(_name.Value);
+        responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString()
+            .Should().NotBeNullOrWhiteSpace();
     }
 
     [Theory]
