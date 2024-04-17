@@ -10,6 +10,7 @@ public class Version0000001 : VersionBase
         CreateTable("Users")
             .WithColumn("Name").AsString(45).NotNullable()
             .WithColumn("Email").AsString(45).NotNullable()
-            .WithColumn("Password").AsString(2000).NotNullable();
+            .WithColumn("Password").AsString(2000).NotNullable()
+            .WithColumn("UserIdentifier").AsGuid().NotNullable();
     }
 }
