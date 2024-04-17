@@ -2,6 +2,7 @@
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.Tokens;
 
 using FluentAssertions;
 
@@ -30,7 +31,9 @@ public class DoLoginUseCaseTest
         });
 
         result.Should().NotBeNull();
+        result.Tokens.Should().NotBeNull();
         result.Name.Should().NotBeNullOrWhiteSpace().And.Be(user.Name);
+        result.Tokens.AccessToken.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -62,10 +65,11 @@ public class DoLoginUseCaseTest
     {
         var passwordEncripter = PasswordEncripterBuilder.Build();
         var repositoryReadOnly = new UserReadOnlyRepositoryBuilder();
+        var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
         if (user is not null)
             repositoryReadOnly.GetByEmailAndPassword(user);
 
-        return new DoLoginUseCase(repositoryReadOnly.Build(), passwordEncripter);
+        return new DoLoginUseCase(repositoryReadOnly.Build(), passwordEncripter, accessTokenGenerator);
     }
 }
