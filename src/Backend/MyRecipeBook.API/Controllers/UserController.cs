@@ -10,7 +10,7 @@ public class UserController : MyRecipeBookBaseController
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ResponseErroJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromServices] IRegisterUserUseCase useCase, [FromBody] RequestRegisterUserJson request)
     {
         var result = await useCase.Execute(request);
