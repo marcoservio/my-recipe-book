@@ -4,7 +4,6 @@ using MyRecipeBook.Domain.Security.Tokens;
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 
@@ -32,5 +31,5 @@ public class JwtTokenGenerator(uint expirationTimeMinutes, string signingKey) : 
         var securityToken = tokenHandler.CreateToken(tokenDescriptor);
 
         return tokenHandler.WriteToken(securityToken);
-    }    
+    }
 }

@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Json;
+﻿using MyRecipeBook.Domain.Extensions;
+
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 using Xunit;
 
@@ -13,6 +16,22 @@ public class MyRecipeBookClassFixture(CustomWebApplicationFactory factory) : ICl
         ChangeRequestCulture(culture);
 
         return await _httpClient.PostAsJsonAsync(method, request);
+    }
+
+    protected async Task<HttpResponseMessage> DoGet(string method, string token = "", string culture = "en")
+    {
+        ChangeRequestCulture(culture);
+        AuthorizationRequest(token);
+
+        return await _httpClient.GetAsync(method);
+    }
+
+    private void AuthorizationRequest(string token)
+    {
+        if (token.Empty())
+            return;
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
     }
 
     private void ChangeRequestCulture(string culture)

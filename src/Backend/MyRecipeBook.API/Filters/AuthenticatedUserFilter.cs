@@ -51,7 +51,7 @@ public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator,
     {
         var authentication = context.HttpContext.Request.Headers.Authorization.ToString();
 
-        if (authentication.NotEmpty())
+        if (authentication.Empty())
             throw new MyRecipeBookException(ResourceMessagesException.NO_TOKEN);
 
         return authentication["Bearer ".Length..].Trim();
