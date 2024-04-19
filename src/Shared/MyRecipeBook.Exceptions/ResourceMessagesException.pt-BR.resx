@@ -133,7 +133,7 @@
     <value>O nome não pode estar vazio.</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
-    <value>Token não existe.</value>
+    <value>A requisição não possui token.</value>
   </data>
   <data name="PASSWORD_CHARACTERES" xml:space="preserve">
     <value>A senha deve ter mais de 6 caracteres.</value>

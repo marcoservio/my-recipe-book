@@ -17,7 +17,8 @@ namespace WebApi.Test.Login.DoLogin;
 
 public class DoLoginTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
 {
-    private readonly string _method = "login";
+    private readonly string METHOD = "login";
+
     private readonly Lazy<string> _email = new(factory.GetEmail);
     private readonly Lazy<string> _password = new(factory.GetPassword);
     private readonly Lazy<string> _name = new(factory.GetName);
@@ -31,7 +32,7 @@ public class DoLoginTest(CustomWebApplicationFactory factory) : MyRecipeBookClas
             Password = _password.Value
         };
 
-        var response = await DoPost(_method, request);
+        var response = await DoPost(METHOD, request);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -50,7 +51,7 @@ public class DoLoginTest(CustomWebApplicationFactory factory) : MyRecipeBookClas
     {
         var request = RequestLoginJsonBuilder.Build();
 
-        var response = await DoPost(_method, request, culture);
+        var response = await DoPost(METHOD, request, culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 

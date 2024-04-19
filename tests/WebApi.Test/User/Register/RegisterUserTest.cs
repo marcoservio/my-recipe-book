@@ -16,14 +16,14 @@ namespace WebApi.Test.User.Register;
 
 public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
 {
-    private readonly string _method = "user";    
+    private readonly string METHOD = "user";    
 
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var response = await DoPost(_method, request);
+        var response = await DoPost(METHOD, request);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -43,7 +43,7 @@ public class RegisterUserTest(CustomWebApplicationFactory factory) : MyRecipeBoo
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;        
 
-        var response = await DoPost(_method, request, culture);
+        var response = await DoPost(METHOD, request, culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 

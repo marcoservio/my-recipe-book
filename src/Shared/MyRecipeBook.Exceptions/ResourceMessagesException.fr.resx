@@ -133,7 +133,7 @@
     <value>Le nom ne peut pas être vide.</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
-    <value>Le jeton n'existe pas.</value>
+    <value>Une réquisition ne possède pas de jeton.</value>
   </data>
   <data name="PASSWORD_CHARACTERES" xml:space="preserve">
     <value>Le mot de passe doit comporter plus de 6 caractères.</value>

@@ -6,14 +6,17 @@ using MyRecipeBook.Infrastructure.Migrations;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.API.Converters;
 using Microsoft.OpenApi.Models;
+using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBook.API.Token;
 
+const string BearerScheme = "Bearer";
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringConverter()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.AddSecurityDefinition(BearerScheme, new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme.
                         Enter 'Bearer' [space] and then your token in the text input below.
@@ -21,7 +24,7 @@ builder.Services.AddSwaggerGen(options =>
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Scheme = BearerScheme
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -32,10 +35,10 @@ builder.Services.AddSwaggerGen(options =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    Id = BearerScheme
                 },
                 Scheme = "oauth2",
-                Name = "Bearer",
+                Name = BearerScheme,
                 In = ParameterLocation.Header
             },
             new List<string>()
@@ -47,8 +50,11 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)))
 
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
