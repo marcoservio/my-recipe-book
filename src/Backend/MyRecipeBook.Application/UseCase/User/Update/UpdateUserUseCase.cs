@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Domain.Extensions;
@@ -13,13 +11,12 @@ using MyRecipeBook.Exceptions.ExceptionsBase;
 namespace MyRecipeBook.Application.UseCase.User.Update;
 
 public class UpdateUserUseCase(ILoggedUser loggedUser, IUserUpdateOnlyRepository updateOnlyrepository,
-    IUserReadOnlyRepository readOnlyRepository, IUnitOfWork unitOfWork, IMapper mapper) : IUpdateUserUseCase
+    IUserReadOnlyRepository readOnlyRepository, IUnitOfWork unitOfWork) : IUpdateUserUseCase
 {
     private readonly ILoggedUser _loggedUser = loggedUser;
     private readonly IUserUpdateOnlyRepository _updateOnlyrepository = updateOnlyrepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
 
     public async Task Execute(RequestUpdateUserJson request)
     {
