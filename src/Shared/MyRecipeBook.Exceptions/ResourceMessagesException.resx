@@ -135,6 +135,9 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Request don't have token.</value>
   </data>
+  <data name="PASSWORD_EMPTY" xml:space="preserve">
+    <value>The password cannot be empty.</value>
+  </data>
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>The password must be longer than 6 characteres.</value>
   </data>

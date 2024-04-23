@@ -138,6 +138,9 @@
   <data name="PASSWORD_CHARACTERES" xml:space="preserve">
     <value>Le mot de passe doit comporter plus de 6 caractères.</value>
   </data>
+  <data name="PASSWORD_EMPTY" xml:space="preserve">
+    <value>The password cannot be empty.</value>
+  </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erreur inconnue.</value>
   </data>
