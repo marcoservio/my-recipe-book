@@ -1,7 +1,7 @@
-﻿using MyRecipeBook.Application.Services.Cryptography;
-using MyRecipeBook.Communication.Requests;
+﻿using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
@@ -18,7 +18,7 @@ public class DoLoginUseCase(IUserReadOnlyRepository repository, IPasswordEncript
     {
         Validate(request);
 
-        var encriptedPassword = _passwordEncripter.Encript(request.Password);
+        var encriptedPassword = _passwordEncripter.Encrypt(request.Password);
         var user = await _repository.GetByEmailAndPassword(request.Email, encriptedPassword) ?? throw new InvalidLoginException();
 
         return new ResponseRegisterUserJson

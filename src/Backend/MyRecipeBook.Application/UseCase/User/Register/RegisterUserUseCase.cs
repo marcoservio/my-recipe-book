@@ -2,11 +2,11 @@
 
 using FluentValidation.Results;
 
-using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
@@ -31,7 +31,7 @@ public class RegisterUserUseCase(IUserWriteOnlyRepository writeOnlyRepository,
         await Validate(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
-        user.Password = _passwordEncripter.Encript(request.Password);
+        user.Password = _passwordEncripter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();
 
         await _writeOnlyRepository.Add(user);
