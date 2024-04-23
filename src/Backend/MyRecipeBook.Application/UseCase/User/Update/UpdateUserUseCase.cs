@@ -10,21 +10,21 @@ using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCase.User.Update;
 
-public class UpdateUserUseCase(ILoggedUser loggedUser, IUserUpdateOnlyRepository updateOnlyrepository,
+public class UpdateUserUseCase(ILoggedUser iLoggedUser, IUserUpdateOnlyRepository updateOnlyrepository,
     IUserReadOnlyRepository readOnlyRepository, IUnitOfWork unitOfWork) : IUpdateUserUseCase
 {
-    private readonly ILoggedUser _loggedUser = loggedUser;
+    private readonly ILoggedUser _loggedUser = iLoggedUser;
     private readonly IUserUpdateOnlyRepository _updateOnlyrepository = updateOnlyrepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task Execute(RequestUpdateUserJson request)
     {
-        var loggedUser =  await _loggedUser.User();
+        var currentUser = await _loggedUser.User();
 
-        await Validate(request, loggedUser.Email);
+        await Validate(request, currentUser.Email);
 
-        var user = await _updateOnlyrepository.GetById(loggedUser.Id);
+        var user = await _updateOnlyrepository.GetById(currentUser.Id);
 
         user.Name = request.Name;
         user.Email = request.Email;
