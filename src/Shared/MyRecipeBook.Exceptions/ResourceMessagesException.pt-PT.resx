@@ -139,7 +139,7 @@
     <value>A palavra-passe deve ter mais de 6 caracteres.</value>
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
-    <value>The password cannot be empty.</value>
+    <value>A palavra-passe não pode estar vazia.</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
