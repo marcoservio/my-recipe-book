@@ -1,21 +1,23 @@
 ﻿using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
+
 using FluentAssertions;
+
 using System.Net;
 using WebApi.Test.InlineData;
 using Xunit;
 
-namespace WebApi.Test.User.Update;
+namespace WebApi.Test.User.ChangePassword;
 
-public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
+public class ChangePasswordInvalidTokenTest(CustomWebApplicationFactory factory) : MyRecipeBookClassFixture(factory)
 {
-    private readonly string METHOD = "user";
+    private readonly string METHOD = "user/change-password";
 
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Token_Invalid(string culture)
     {
-        var request = RequestUpdateUserJsonBuilder.Build();
+        var request = RequestChangePasswordJsonBuilder.Build();
 
         var response = await DoPut(METHOD, request, "tokenInvalid", culture);
 
@@ -26,7 +28,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Token_Expired(string culture)
     {
-        var request = RequestUpdateUserJsonBuilder.Build();
+        var request = RequestChangePasswordJsonBuilder.Build();
 
         var token = JwtTokenGeneratorBuilder.TokenExpired();
 
@@ -39,7 +41,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Without_Token(string culture)
     {
-        var request = RequestUpdateUserJsonBuilder.Build();
+        var request = RequestChangePasswordJsonBuilder.Build();
 
         var response = await DoPut(METHOD, request, string.Empty, culture);
 
@@ -50,7 +52,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Token_With_User_NotFound(string culture)
     {
-        var request = RequestUpdateUserJsonBuilder.Build();
+        var request = RequestChangePasswordJsonBuilder.Build();
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
 

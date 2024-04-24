@@ -36,7 +36,7 @@ public class GetUserProfileInvalidTokenTest(CustomWebApplicationFactory factory)
 
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
-    public async Task Error_Without_Invalid(string culture)
+    public async Task Error_Without_Token(string culture)
     {
         var response = await DoGet(METHOD, string.Empty, culture);
 
