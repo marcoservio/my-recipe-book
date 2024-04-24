@@ -11,7 +11,7 @@ using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCase.User.ChangePassword;
 
-public class ChangePasswordUserCase(ILoggedUser iLoggedUser, 
+public class ChangePasswordUseCase(ILoggedUser iLoggedUser, 
     IUserUpdateOnlyRepository repository, IUnitOfWork unitOfWord, 
     IPasswordEncripter passwordEncripter) : IChangePasswordUseCase
 {
@@ -42,7 +42,7 @@ public class ChangePasswordUserCase(ILoggedUser iLoggedUser,
         var currentPasswordEncripted = _passwordEncripter.Encrypt(request.Password);
 
         if (currentPasswordEncripted.Equals(loggedUser.Password).IsFalse())
-            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_EMPTY));
+            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
 
         if (result.IsValid.IsFalse())
             throw new ErrorOnValidationException(result.Errors.Select(e => e.ErrorMessage).ToList());
