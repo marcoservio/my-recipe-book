@@ -22,7 +22,7 @@ public class GetUserProfileTest(CustomWebApplicationFactory factory) : MyRecipeB
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier.Value);
 
-        var response = await DoGet(METHOD, token);
+        var response = await DoGet(method: METHOD, token: token);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 

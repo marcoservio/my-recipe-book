@@ -161,6 +161,20 @@ public class RecipeValidatorTest
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesException.GREATER_THAN_ZERO_INSTRUCTION_STEP));
     }
 
+    [Fact]
+    public void Error_Instruction_Too_Long()
+    {
+        var validator = new RecipeValidator();
+
+        var request = RequestRecipeJsonBuilder.Build();
+        request.Instructions.First().Text = RequestStringGenerator.Paragraphs(minCharacters: 2001);
+
+        var result = validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceMessagesException.INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS));
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData("      ")]

@@ -172,7 +172,7 @@
     <value>A palavra-passe não pode estar vazia.</value>
   </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
-    <value>A titulo da receita não pode estar vazio.</value>
+    <value>O titulo da receita não pode estar vazio.</value>
   </data>
   <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
     <value>Duas ou mais instruções têm a mesma ordem.</value>

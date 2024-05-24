@@ -17,7 +17,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
     {
         var request = RequestUpdateUserJsonBuilder.Build();
 
-        var response = await DoPut(METHOD, request, "tokenInvalid", culture);
+        var response = await DoPut(method: METHOD, request: request, token: "tokenInvalid", culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
@@ -30,7 +30,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
 
         var token = JwtTokenGeneratorBuilder.TokenExpired();
 
-        var response = await DoPut(METHOD, request, token, culture);
+        var response = await DoPut(method: METHOD, request: request, token: token, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
@@ -41,7 +41,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
     {
         var request = RequestUpdateUserJsonBuilder.Build();
 
-        var response = await DoPut(METHOD, request, string.Empty, culture);
+        var response = await DoPut(method: METHOD, request: request, token: string.Empty, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
@@ -54,7 +54,7 @@ public class UpdateUserInvalidTokenTest(CustomWebApplicationFactory factory) : M
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(Guid.NewGuid());
 
-        var response = await DoPut(METHOD, request, token, culture);
+        var response = await DoPut(method: METHOD, request: request, token: token, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
