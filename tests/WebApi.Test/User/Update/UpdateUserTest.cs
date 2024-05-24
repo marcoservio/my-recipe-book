@@ -28,7 +28,7 @@ public class UpdateUserTest(CustomWebApplicationFactory factory) : MyRecipeBookC
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier.Value);
 
-        var response = await DoPut(METHOD, request, token);
+        var response = await DoPut(method: METHOD, request: request, token: token);
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
@@ -42,7 +42,7 @@ public class UpdateUserTest(CustomWebApplicationFactory factory) : MyRecipeBookC
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier.Value);
 
-        var response = await DoPut(METHOD, request, token, culture);
+        var response = await DoPut(method: METHOD, request: request, token: token, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
