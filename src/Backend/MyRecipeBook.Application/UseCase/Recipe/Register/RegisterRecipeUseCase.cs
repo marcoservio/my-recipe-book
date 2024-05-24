@@ -40,8 +40,8 @@ public class RegisterRecipeUseCase(IRecipeWriteOnlyRepository repository, ILogge
     {
         var instructions = request.Instructions.OrderBy(i => i.Step).ToList();
 
-        for (int i = 0; i < instructions.Count; i++)
-            instructions.ElementAt(i).Step = i++;
+        for (int index = 0; index < instructions.Count; index++)
+            instructions[index].Step = index + 1;
 
         return instructions;
     }
