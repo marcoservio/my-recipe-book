@@ -11,6 +11,7 @@ namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private MyRecipeBook.Domain.Entities.Recipe _recipe = default!;
     private MyRecipeBook.Domain.Entities.User _user = default!;
     private string _password = string.Empty;
 
@@ -48,11 +49,20 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetName() => _user.Name;
     public Guid GetUserIdentifier() => _user.UserIdentifier;
 
+    public string GetRecipeTitle() => _recipe.Title;
+    public MyRecipeBook.Domain.Enums.Difficulty GetRecipeDifficulty() => _recipe.Difficulty!.Value;
+    public MyRecipeBook.Domain.Enums.CookingTime GetRecipeCookingTime() => _recipe.CookingTime!.Value;
+    public IList<MyRecipeBook.Domain.Enums.DishType> GetDishType() => _recipe.DishTypes.Select(c => c.Type).ToList();
+
     private void StartDatabase(MyRecipeBookDbContext dbContext)
     {
         (_user, _password) = UserBuilder.Build();
 
+        _recipe = RecipeBuilder.Build(_user);
+
         dbContext.Users.Add(_user);
+
+        dbContext.Recipes.Add(_recipe);
 
         dbContext.SaveChanges();
     }
