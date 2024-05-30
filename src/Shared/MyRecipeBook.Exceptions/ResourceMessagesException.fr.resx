@@ -171,6 +171,9 @@
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>Le mot de passe ne peut pas être vide.</value>
   </data>
+  <data name="RECIPE_NOT_FOUND" xml:space="preserve">
+    <value>Recette introuvable</value>
+  </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
     <value>Le titre de la recette ne peut pas être vide.</value>
   </data>

@@ -3,6 +3,7 @@
 using MyRecipeBook.Domain.Enums;
 
 namespace MyRecipeBook.Infrastructure.Extensions;
+
 public static class ConfigurationExtension
 {
     public static bool IsUnitTestEnviroment(this IConfiguration configuration)

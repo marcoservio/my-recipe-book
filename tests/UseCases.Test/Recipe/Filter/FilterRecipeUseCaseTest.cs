@@ -11,10 +11,13 @@ using MyRecipeBook.Communication.Enums;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
+using Xunit;
+
 namespace UseCases.Test.Recipe.Filter;
 
 public class FilterRecipeUseCaseTest
 {
+    [Fact]
     public async Task Success()
     {
         (var user, _) = UserBuilder.Build();
@@ -32,6 +35,7 @@ public class FilterRecipeUseCaseTest
         result.Recipes.Should().HaveCount(recipes.Count);
     }
 
+    [Fact]
     public async Task Error_CookingTime_Invalid()
     {
         (var user, _) = UserBuilder.Build();

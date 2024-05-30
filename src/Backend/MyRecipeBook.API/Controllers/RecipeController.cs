@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using MyRecipeBook.API.Attributes;
+using MyRecipeBook.API.Binders;
 using MyRecipeBook.Application.UseCase.Recipe.Filter;
+using MyRecipeBook.Application.UseCase.Recipe.GetById;
 using MyRecipeBook.Application.UseCase.Recipe.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
@@ -34,5 +36,17 @@ public class RecipeController : MyRecipeBookBaseController
             return Ok(response);
 
         return NoContent();
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseRecipeJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById([FromServices] IGetRecipeByIdUserCase useCase, 
+        [FromRoute] [ModelBinder(typeof(MyRecipeBookIdBinder))] long id)
+    {
+        var response = await useCase.Execute(id);
+
+        return Ok(response);
     }
 }
