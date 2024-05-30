@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.IdEncryption;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -49,6 +50,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetName() => _user.Name;
     public Guid GetUserIdentifier() => _user.UserIdentifier;
 
+    public string GetRecipeId() => IdEncripterBuilder.Build().Encode(_recipe.Id);
     public string GetRecipeTitle() => _recipe.Title;
     public MyRecipeBook.Domain.Enums.Difficulty GetRecipeDifficulty() => _recipe.Difficulty!.Value;
     public MyRecipeBook.Domain.Enums.CookingTime GetRecipeCookingTime() => _recipe.CookingTime!.Value;

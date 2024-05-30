@@ -171,6 +171,9 @@
   <data name="PASSWORD_INVALID" xml:space="preserve">
     <value>The password must be longer than 6 characteres.</value>
   </data>
+  <data name="RECIPE_NOT_FOUND" xml:space="preserve">
+    <value>Recipe not found.</value>
+  </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
     <value>The recipe title cannot be empty.</value>
   </data>

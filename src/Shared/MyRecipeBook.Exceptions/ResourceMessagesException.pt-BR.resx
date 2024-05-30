@@ -171,6 +171,9 @@
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>A senha não pode estar vazia.</value>
   </data>
+  <data name="RECIPE_NOT_FOUND" xml:space="preserve">
+    <value>A Receita não foi encontrada</value>
+  </data>
   <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
     <value>O titulo da receita não pode estar vazio.</value>
   </data>
