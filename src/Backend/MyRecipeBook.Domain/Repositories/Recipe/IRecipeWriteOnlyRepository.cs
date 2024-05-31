@@ -3,4 +3,5 @@
 public interface IRecipeWriteOnlyRepository
 {
     Task Add(Entities.Recipe recipe);
+    Task Delete(long id);
 }

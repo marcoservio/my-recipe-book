@@ -2,11 +2,14 @@
 using CommonTestUtilities.Tokens;
 
 using FluentAssertions;
+
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Exceptions;
+
 using System.Globalization;
 using System.Net;
 using System.Text.Json;
+
 using WebApi.Test.InlineData;
 
 using Xunit;
@@ -19,10 +22,10 @@ public class FilterRecipeTest(CustomWebApplicationFactory factory) : MyRecipeBoo
 
     private readonly Lazy<Guid> _userIdentifier = new(factory.GetUserIdentifier);
 
-    private Lazy<string> _recipeTitle = new(factory.GetRecipeTitle);
-    private Lazy<MyRecipeBook.Domain.Enums.Difficulty> _recipeDifficultyLevel = new(factory.GetRecipeDifficulty);
-    private Lazy<MyRecipeBook.Domain.Enums.CookingTime> _recipeCookinTime = new(factory.GetRecipeCookingTime);
-    private Lazy<IList<MyRecipeBook.Domain.Enums.DishType>> _recipeDishType = new(factory.GetDishType);
+    private readonly Lazy<string> _recipeTitle = new(factory.GetRecipeTitle);
+    private readonly Lazy<MyRecipeBook.Domain.Enums.Difficulty> _recipeDifficultyLevel = new(factory.GetRecipeDifficulty);
+    private readonly Lazy<MyRecipeBook.Domain.Enums.CookingTime> _recipeCookinTime = new(factory.GetRecipeCookingTime);
+    private readonly Lazy<IList<MyRecipeBook.Domain.Enums.DishType>> _recipeDishType = new(factory.GetDishType);
 
     [Fact]
     public async Task Success()

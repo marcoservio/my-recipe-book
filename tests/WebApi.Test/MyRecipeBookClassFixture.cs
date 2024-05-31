@@ -35,6 +35,14 @@ public class MyRecipeBookClassFixture(CustomWebApplicationFactory factory) : ICl
         return await _httpClient.PutAsJsonAsync(method, request);
     }
 
+    protected async Task<HttpResponseMessage> DoDelete(string method, string token = "", string culture = "en")
+    {
+        ChangeRequestCulture(culture);
+        AuthorizationRequest(token);
+
+        return await _httpClient.DeleteAsync(method);
+    }
+
     private void AuthorizationRequest(string token)
     {
         if (token.Empty())
