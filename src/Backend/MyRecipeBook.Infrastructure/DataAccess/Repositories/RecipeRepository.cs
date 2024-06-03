@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 using MyRecipeBook.Domain.Dtos;
 using MyRecipeBook.Domain.Entities;
@@ -7,7 +8,7 @@ using MyRecipeBook.Domain.Repositories.Recipe;
 
 namespace MyRecipeBook.Infrastructure.DataAccess.Repositories;
 
-public class RecipeRepository(MyRecipeBookDbContext context) : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepository
+public class RecipeRepository(MyRecipeBookDbContext context) : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepository, IRecipeUpdateOnlyRepository
 {
     private readonly MyRecipeBookDbContext _context = context;
 
@@ -16,9 +17,9 @@ public class RecipeRepository(MyRecipeBookDbContext context) : IRecipeWriteOnlyR
         await _context.Recipes.AddAsync(recipe);
     }
 
-    public async Task Delete(long id)
+    public async Task Delete(long recipeId)
     {
-        var recipe = await _context.Recipes.FindAsync(id);
+        var recipe = await _context.Recipes.FindAsync(recipeId);
 
         _context.Recipes.Remove(recipe!);
     }
@@ -46,14 +47,27 @@ public class RecipeRepository(MyRecipeBookDbContext context) : IRecipeWriteOnlyR
         return await query.ToListAsync();
     }
 
-    public async Task<Recipe?> GetById(User user, long recipeId)
+    async Task<Recipe?> IRecipeReadOnlyRepository.GetById(User user, long recipeId)
     {
-        return await _context
-            .Recipes
+        return await GetFullRecipe()
             .AsNoTracking()
-            .Include(recipe => recipe.Ingredients)
-            .Include(recipe => recipe.Instructions)
-            .Include(recipe => recipe.DishTypes)
             .FirstOrDefaultAsync(recipe => recipe.Active && recipe.Id == recipeId && recipe.UserId == user.Id);
+    }
+
+    async Task<Recipe?> IRecipeUpdateOnlyRepository.GetById(User user, long recipeId)
+    {
+        return await GetFullRecipe()
+            .FirstOrDefaultAsync(recipe => recipe.Active && recipe.Id == recipeId && recipe.UserId == user.Id);
+    }
+
+    public void Update(Recipe recipe) => _context.Recipes.Update(recipe);
+
+    private IIncludableQueryable<Recipe, IList<DishType>> GetFullRecipe()
+    {
+        return _context
+           .Recipes
+           .Include(recipe => recipe.Ingredients)
+           .Include(recipe => recipe.Instructions)
+           .Include(recipe => recipe.DishTypes);
     }
 }
