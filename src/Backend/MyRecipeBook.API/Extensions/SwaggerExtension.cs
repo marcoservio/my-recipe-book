@@ -6,7 +6,7 @@ namespace MyRecipeBook.API.Extensions;
 
 public static class SwaggerExtension
 {
-    const string BearerScheme = "Bearer";
+    const string AUTHENTICATION_TYPE = "Bearer";
 
     public static void AddSwagger(this IServiceCollection service)
     {
@@ -14,7 +14,7 @@ public static class SwaggerExtension
         {
             options.OperationFilter<IdsFilter>();
 
-            options.AddSecurityDefinition(BearerScheme, new OpenApiSecurityScheme
+            options.AddSecurityDefinition(AUTHENTICATION_TYPE, new OpenApiSecurityScheme
             {
                 Description = @"JWT Authorization header using the Bearer scheme.
                         Enter 'Bearer' [space] and then your token in the text input below.
@@ -22,7 +22,7 @@ public static class SwaggerExtension
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = BearerScheme
+                Scheme = AUTHENTICATION_TYPE
             });
 
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -33,10 +33,10 @@ public static class SwaggerExtension
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id = BearerScheme
+                            Id = AUTHENTICATION_TYPE
                         },
                         Scheme = "oauth2",
-                        Name = BearerScheme,
+                        Name = AUTHENTICATION_TYPE,
                         In = ParameterLocation.Header
                     },
                     new List<string>()
