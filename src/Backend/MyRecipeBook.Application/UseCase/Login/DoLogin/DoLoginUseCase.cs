@@ -16,8 +16,6 @@ public class DoLoginUseCase(IUserReadOnlyRepository repository, IPasswordEncript
 
     public async Task<ResponseRegisterUserJson> Execute(RequestLoginJson request)
     {
-        Validate(request);
-
         var encriptedPassword = _passwordEncripter.Encrypt(request.Password);
         var user = await _repository.GetByEmailAndPassword(request.Email, encriptedPassword) ?? throw new InvalidLoginException();
 
@@ -29,17 +27,5 @@ public class DoLoginUseCase(IUserReadOnlyRepository repository, IPasswordEncript
                 AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier)
             }
         };
-    }
-
-    private static void Validate(RequestLoginJson request)
-    {
-        var validator = new DoLoginValidator();
-        var result = validator.Validate(request);
-
-        if (!result.IsValid)
-        {
-            var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
-            throw new ErrorOnValidationException(errorMessages);
-        }
     }
 }

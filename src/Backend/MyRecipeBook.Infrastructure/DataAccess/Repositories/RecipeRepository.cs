@@ -70,4 +70,16 @@ public class RecipeRepository(MyRecipeBookDbContext context) : IRecipeWriteOnlyR
            .Include(recipe => recipe.Instructions)
            .Include(recipe => recipe.DishTypes);
     }
+
+    public async Task<IList<Recipe>> GetForDashboard(User user)
+    {
+        return await _context
+            .Recipes
+            .AsNoTracking()
+            .Include(r => r.Ingredients)
+            .Where(r => r.Active && r.UserId == user.Id)
+            .OrderByDescending(r => r.CreatedOn)
+            .Take(5)
+            .ToListAsync();
+    }
 }
