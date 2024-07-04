@@ -133,7 +133,7 @@ public static class DependencyInjectionExtension
 
     private static void AddOpenAI(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IGenerateRecipeAI, ChatGptService>();
+        services.AddScoped<IGenerateRecipeAI, ChatGPTService>();
 
         var key = configuration.GetValue<string>("Settings:OpenAI:ApiKey");
 
