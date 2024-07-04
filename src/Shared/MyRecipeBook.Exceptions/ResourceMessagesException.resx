@@ -132,6 +132,9 @@
   <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
     <value>The provided dish type value is not supported.</value>
   </data>
+  <data name="DUPLICATED_INGREDIENTS_IN_LIST" xml:space="preserve">
+    <value>The list have ingredients duplicated.</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>Email already registered</value>
   </data>
@@ -150,11 +153,17 @@
   <data name="INGREDIENT_EMPTY" xml:space="preserve">
     <value>The ingredient cannot be empty.</value>
   </data>
+  <data name="INGREDIENT_NOT_FOLLOWING_PATTERN" xml:space="preserve">
+    <value>Ingredient does not follow the pattern.</value>
+  </data>
   <data name="INSTRUCTION_EMPTY" xml:space="preserve">
     <value>The instruction cannot be empty.</value>
   </data>
   <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
     <value>The instruction exceeds the limit of characters.</value>
+  </data>
+  <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
+    <value>Invalid number of ingredients. The list must have betweem 1 and 5 ingredients.</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The name cannot be empty.</value>

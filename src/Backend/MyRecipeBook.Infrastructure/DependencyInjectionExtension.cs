@@ -11,6 +11,7 @@ using MyRecipeBook.Domain.Repositories.User;
 using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
+using MyRecipeBook.Domain.Services.OpenAI;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.Extensions;
@@ -18,6 +19,9 @@ using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
+using MyRecipeBook.Infrastructure.Services.OpenAI;
+
+using OpenAI_API;
 
 using System.Reflection;
 
@@ -31,6 +35,7 @@ public static class DependencyInjectionExtension
         AddLoggedUser(services);
         AddTokens(services, configuration);
         AddDbContext(services, configuration);
+        AddOpenAI(services, configuration);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -124,5 +129,16 @@ public static class DependencyInjectionExtension
         var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
 
         services.AddScoped<IPasswordEncripter>(option => new Sha512Encripter(additionalKey!));
+    }
+
+    private static void AddOpenAI(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IGenerateRecipeAI, ChatGPTService>();
+
+        var key = configuration.GetValue<string>("Settings:OpenAI:ApiKey");
+
+        var authentication = new APIAuthentication(key);
+
+        services.AddScoped<IOpenAIAPI>(option => new OpenAIAPI(authentication));
     }
 }

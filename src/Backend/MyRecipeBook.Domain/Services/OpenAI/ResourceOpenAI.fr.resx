@@ -117,82 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AT_LEAST_ONE_INGREDIENT" xml:space="preserve">
-    <value>Veuillez ajouter au moins un ingrédient.</value>
-  </data>
-  <data name="AT_LEAST_ONE_INSTRUCTION" xml:space="preserve">
-    <value>Veuillez ajouter au moins une instruction.</value>
-  </data>
-  <data name="COOKING_TIME_NOT_SUPPORTED" xml:space="preserve">
-    <value>La valeur de temps de cuisson fournie n'est pas prise en charge.</value>
-  </data>
-  <data name="DIFFICULTY_LEVEL_NOT_SUPPORTED" xml:space="preserve">
-    <value>La valeur du niveau de difficulté fournie n'est pas prise en charge.</value>
-  </data>
-  <data name="DISH_TYPE_NOT_SUPPORTED" xml:space="preserve">
-    <value>La valeur du type de plat fournie n'est pas prise en charge.</value>
-  </data>
-  <data name="DUPLICATED_INGREDIENTS_IN_LIST" xml:space="preserve">
-    <value>La liste contient des ingrédients en double</value>
-  </data>
-  <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
-    <value>Email déjà enregistré.</value>
-  </data>
-  <data name="EMAIL_EMPTY" xml:space="preserve">
-    <value>L'e-mail ne peut pas être vide.</value>
-  </data>
-  <data name="EMAIL_INVALID" xml:space="preserve">
-    <value>L'adresse mail est invalide.</value>
-  </data>
-  <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
-    <value>L'e-mail ou le mot de passe n'est pas valide.</value>
-  </data>
-  <data name="GREATER_THAN_ZERO_INSTRUCTION_STEP" xml:space="preserve">
-    <value>Le pas doit être supérieur à zéro.</value>
-  </data>
-  <data name="INGREDIENT_EMPTY" xml:space="preserve">
-    <value>L'ingrédient ne peut pas être vide.</value>
-  </data>
-  <data name="INGREDIENT_NOT_FOLLOWING_PATTERN" xml:space="preserve">
-    <value>L'ingrédient ne suit pas le modèle</value>
-  </data>
-  <data name="INSTRUCTION_EMPTY" xml:space="preserve">
-    <value>L'instruction ne peut pas être vide.</value>
-  </data>
-  <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
-    <value>L'instruction dépasse la limite de caractères.</value>
-  </data>
-  <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
-    <value>Nombre d'ingrédients invalide. La liste doit contenir entre 1 et 5 ingrédients.</value>
-  </data>
-  <data name="NAME_EMPTY" xml:space="preserve">
-    <value>Le nom ne peut pas être vide.</value>
-  </data>
-  <data name="NO_TOKEN" xml:space="preserve">
-    <value>Une réquisition ne possède pas de jeton.</value>
-  </data>
-  <data name="PASSWORD_CHARACTERES" xml:space="preserve">
-    <value>Le mot de passe doit comporter plus de 6 caractères.</value>
-  </data>
-  <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
-    <value>Le nouveau mot de passe est différent du mot de passe actuel</value>
-  </data>
-  <data name="PASSWORD_EMPTY" xml:space="preserve">
-    <value>Le mot de passe ne peut pas être vide.</value>
-  </data>
-  <data name="RECIPE_NOT_FOUND" xml:space="preserve">
-    <value>Recette introuvable</value>
-  </data>
-  <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
-    <value>Le titre de la recette ne peut pas être vide.</value>
-  </data>
-  <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
-    <value>Deux instructions ou plus ont le même ordre.</value>
-  </data>
-  <data name="UNKNOWN_ERROR" xml:space="preserve">
-    <value>Erreur inconnue.</value>
-  </data>
-  <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
-    <value>L'utilisateur n'est pas autorisé à accéder à cette ressource.</value>
+  <data name="STARTING_GENERATE_RECIPE" xml:space="preserve">
+    <value>Vous êtes un chef qui connaît de nombreuses recettes savoureuses. Lorsque l'utilisateur vous fournit une liste d'ingrédients séparés par ';', vous répondrez avec une seule recette facile à créer avec les ingrédients donnés.
+
+Vous allez créer une recette avec la structure et l’ordre suivants :
+
+[Nom de la recette]
+
+[Temps nécessaire à sa préparation, où 0 signifie moins de 10 minutes, 1 signifie entre 10 et 30 minutes, 2 signifie entre 30 et 60 minutes ou 3 signifie plus de 60 minutes]
+
+[Liste des ingrédients fournis et ceux ajoutés par vos soins séparés par ';']
+
+[Instructions étape par étape pour préparer la recette sur une seule ligne dans l'ordre et séparées par '@' N'oubliez pas de séparer par '@']
+
+N'ajoutez pas plus de texte que demandé, s'il vous plaît.</value>
   </data>
 </root>
