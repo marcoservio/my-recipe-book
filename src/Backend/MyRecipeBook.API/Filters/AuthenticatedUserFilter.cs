@@ -28,7 +28,7 @@ public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator,
             var exist = await _repository.ExistActiveUserWithIdentifier(userIdentifier);
 
             if (exist.IsFalse())
-                throw new MyRecipeBookException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+                throw new OnAuthorizationException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
         }
         catch (SecurityTokenExpiredException)
         {
@@ -37,7 +37,7 @@ public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator,
                 TokenIsExpired = true
             });
         }
-        catch (MyRecipeBookException ex)
+        catch (OnAuthorizationException ex)
         {
             context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ex.Message));
         }
@@ -52,7 +52,7 @@ public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator,
         var authentication = context.HttpContext.Request.Headers.Authorization.ToString();
 
         if (authentication.Empty())
-            throw new MyRecipeBookException(ResourceMessagesException.NO_TOKEN);
+            throw new OnAuthorizationException(ResourceMessagesException.NO_TOKEN);
 
         return authentication["Bearer ".Length..].Trim();
     }
