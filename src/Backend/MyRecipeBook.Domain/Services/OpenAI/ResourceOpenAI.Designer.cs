@@ -69,7 +69,7 @@ namespace MyRecipeBook.Domain.Services.OpenAI {
         ///
         ///[Time needed to prepare it, where 0 means less than 10 minutes, 1 means between 10 and 30 minutes, 2 means between 30 and 60 minutes, or 3 means more than 60 minutes]
         ///
-        ///[List of ingredients provided and those added by you sep [rest of string was truncated]&quot;;.
+        ///[List of ingredients provided and those added by [rest of string was truncated]&quot;;.
         /// </summary>
         public static string STARTING_GENERATE_RECIPE {
             get {
