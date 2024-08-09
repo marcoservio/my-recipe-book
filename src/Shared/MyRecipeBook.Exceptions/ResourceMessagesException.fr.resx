@@ -171,6 +171,9 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Une réquisition ne possède pas de jeton.</value>
   </data>
+  <data name="ONLY_IMAGES_ACCEPTED" xml:space="preserve">
+    <value>Seules les images (PNG, JPG, JPEG) sont acceptées.</value>
+  </data>
   <data name="PASSWORD_CHARACTERES" xml:space="preserve">
     <value>Le mot de passe doit comporter plus de 6 caractères.</value>
   </data>

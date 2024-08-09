@@ -6,6 +6,7 @@ using MyRecipeBook.Application.UseCase.Recipe.Delete;
 using MyRecipeBook.Application.UseCase.Recipe.Filter;
 using MyRecipeBook.Application.UseCase.Recipe.Generate;
 using MyRecipeBook.Application.UseCase.Recipe.GetById;
+using MyRecipeBook.Application.UseCase.Recipe.Image;
 using MyRecipeBook.Application.UseCase.Recipe.Register;
 using MyRecipeBook.Application.UseCase.Recipe.Update;
 using MyRecipeBook.Communication.Requests;
@@ -87,5 +88,19 @@ public class RecipeController : MyRecipeBookBaseController
         var response = await useCase.Execute(request);
 
         return Ok(response);
+    }
+
+    [HttpPut]
+    [Route("image/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateImage([FromServices] IAddUpdateImageCoverUseCase useCase,
+        [FromRoute][ModelBinder(typeof(MyRecipeBookIdBinder))] long id,
+        IFormFile file)
+    {
+        await useCase.Execute(id, file);
+
+        return NoContent();
     }
 }

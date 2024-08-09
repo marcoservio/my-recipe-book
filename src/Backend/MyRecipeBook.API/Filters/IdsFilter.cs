@@ -13,7 +13,7 @@ public class IdsFilter : IOperationFilter
         var encryptedIds = context
             .ApiDescription
             .ParameterDescriptions
-            .Where(x => x.ModelMetadata.BinderType == typeof(MyRecipeBookIdBinder))
+            .Where(x => x.ModelMetadata?.BinderType == typeof(MyRecipeBookIdBinder))
             .ToDictionary(d => d.Name, d => d);
 
         foreach (var parameter in operation.Parameters)

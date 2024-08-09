@@ -8,6 +8,7 @@ using MyRecipeBook.Application.UseCase.Recipe.Delete;
 using MyRecipeBook.Application.UseCase.Recipe.Filter;
 using MyRecipeBook.Application.UseCase.Recipe.Generate;
 using MyRecipeBook.Application.UseCase.Recipe.GetById;
+using MyRecipeBook.Application.UseCase.Recipe.Image;
 using MyRecipeBook.Application.UseCase.Recipe.Register;
 using MyRecipeBook.Application.UseCase.Recipe.Update;
 using MyRecipeBook.Application.UseCase.User.ChangePassword;
@@ -62,6 +63,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IDeleteRecipeUseCase, DeleteRecipeUseCase>();
         services.AddScoped<IUpdateRecipeUseCase, UpdateRecipeUseCase>();
         services.AddScoped<IGenerateRecipeUseCase, GenerateRecipeUseCase>();
+        services.AddScoped<IAddUpdateImageCoverUseCase, AddUpdateImageCoverUseCase>();
         
         services.AddScoped<IGetDashboardUseCase, GetDashboardUseCase>();
     }    
