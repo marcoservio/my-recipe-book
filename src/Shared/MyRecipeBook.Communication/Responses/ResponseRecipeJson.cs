@@ -11,4 +11,5 @@ public class ResponseRecipeJson
     public IList<DishType> DishTypes { get; set; } = [];
     public CookingTime? CookingTime { get; set; }
     public Difficulty? Difficulty { get; set; }
+    public string? ImageUrl { get; set; }
 }
