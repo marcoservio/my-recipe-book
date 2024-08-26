@@ -23,13 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyRecipeBook.Communication"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyRecipeBook.Exceptions", "src\Shared\MyRecipeBook.Exceptions\MyRecipeBook.Exceptions.csproj", "{C4B352AA-65AF-4EF0-B3D6-F6A68E38C3E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{76034A3D-E502-4457-89CE-1960916A0EEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators.Test", "tests\Validators.Test\Validators.Test.csproj", "{76034A3D-E502-4457-89CE-1960916A0EEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{4DA749DE-3BC7-4851-BACC-634717688908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{4DA749DE-3BC7-4851-BACC-634717688908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases.Test", "tests\UseCases.Test\UseCases.Test.csproj", "{0C820E78-AEB0-4688-A5AE-82B6276A8014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases.Test", "tests\UseCases.Test\UseCases.Test.csproj", "{0C820E78-AEB0-4688-A5AE-82B6276A8014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Test", "tests\WebApi.Test\WebApi.Test.csproj", "{4B08BCE9-A273-47D9-BDD0-AF79AEC4EE2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Test", "tests\WebApi.Test\WebApi.Test.csproj", "{4B08BCE9-A273-47D9-BDD0-AF79AEC4EE2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{64E2BD43-F72D-4AC8-86EC-18699D9FE0BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyRecipeBook.Site", "src\Frontend\MyRecipeBook.Site\MyRecipeBook.Site.csproj", "{025778D2-EE9D-4E74-8D48-1C875B20DD52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +81,10 @@ Global
 		{4B08BCE9-A273-47D9-BDD0-AF79AEC4EE2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B08BCE9-A273-47D9-BDD0-AF79AEC4EE2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B08BCE9-A273-47D9-BDD0-AF79AEC4EE2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{025778D2-EE9D-4E74-8D48-1C875B20DD52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{025778D2-EE9D-4E74-8D48-1C875B20DD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{025778D2-EE9D-4E74-8D48-1C875B20DD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{025778D2-EE9D-4E74-8D48-1C875B20DD52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +102,8 @@ Global
 		{4DA749DE-3BC7-4851-BACC-634717688908} = {8CA3221A-119A-4C16-A5AA-C2D52F732B10}
 		{0C820E78-AEB0-4688-A5AE-82B6276A8014} = {8CA3221A-119A-4C16-A5AA-C2D52F732B10}
 		{4B08BCE9-A273-47D9-BDD0-AF79AEC4EE2C} = {8CA3221A-119A-4C16-A5AA-C2D52F732B10}
+		{64E2BD43-F72D-4AC8-86EC-18699D9FE0BB} = {328A3884-2E21-4949-9423-F06434691B03}
+		{025778D2-EE9D-4E74-8D48-1C875B20DD52} = {64E2BD43-F72D-4AC8-86EC-18699D9FE0BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F8B293B-0610-4E83-B0AD-51DF0121C9A8}
