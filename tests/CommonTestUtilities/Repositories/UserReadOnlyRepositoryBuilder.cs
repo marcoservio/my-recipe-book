@@ -22,6 +22,11 @@ public class UserReadOnlyRepositoryBuilder
         _repository.Setup(repository => repository.GetByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
     }
 
+    public void GetByEmail(MyRecipeBook.Domain.Entities.User user)
+    {
+        _repository.Setup(repository => repository.GetByEmail(user.Email)).ReturnsAsync(user);
+    }
+
     public IUserReadOnlyRepository Build()
     {
         return _repository.Object;
