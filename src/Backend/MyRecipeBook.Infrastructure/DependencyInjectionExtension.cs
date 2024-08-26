@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Messaging.ServiceBus;
+using Azure.Storage.Blobs;
 
 using FluentMigrator.Runner;
 
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using MyRecipeBook.Domain.Enums;
+using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Repositories.User;
@@ -14,6 +16,7 @@ using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Domain.Services.OpenAI;
+using MyRecipeBook.Domain.Services.ServiceBus;
 using MyRecipeBook.Domain.Services.Storage;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.DataAccess.Repositories;
@@ -23,6 +26,7 @@ using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 using MyRecipeBook.Infrastructure.Services.LoggedUser;
 using MyRecipeBook.Infrastructure.Services.OpenAI;
+using MyRecipeBook.Infrastructure.Services.ServiceBus;
 using MyRecipeBook.Infrastructure.Services.Storage;
 
 using OpenAI_API;
@@ -41,6 +45,7 @@ public static class DependencyInjectionExtension
         AddDbContext(services, configuration);
         AddOpenAI(services, configuration);
         AddAzureStorage(services, configuration);
+        AddQueue(services, configuration);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -87,7 +92,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
-        
+        services.AddScoped<IUserDeleteOnlyRepository, UserRepository>();
+
         services.AddScoped<IRecipeWriteOnlyRepository, RecipeRepository>();
         services.AddScoped<IRecipeReadOnlyRepository, RecipeRepository>();
         services.AddScoped<IRecipeUpdateOnlyRepository, RecipeRepository>();
@@ -151,6 +157,63 @@ public static class DependencyInjectionExtension
     {
         var connectionString = configuration.GetValue<string>("Settings:BlobStorage:Azure");
 
-        services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
+        if (connectionString.NotEmpty())
+            services.AddScoped<IBlobStorageService>(c => new AzureStorageService(new BlobServiceClient(connectionString)));
+    }
+
+    private static void AddQueue(IServiceCollection services, IConfiguration configuration)
+    {
+        //var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
+
+        //var client = new ServiceBusClient(connectionString, new ServiceBusClientOptions()
+        //{
+        //    TransportType = ServiceBusTransportType.AmqpWebSockets
+        //});
+
+        //var deleteQueue = new DeleteUserQueue(client.CreateSender("user"));
+
+        //var deleteUserProcessor = new DeleteUserProcessor(client.CreateProcessor("user", new ServiceBusProcessorOptions
+        //{
+        //    MaxConcurrentCalls = 1
+        //}));
+
+        //services.AddSingleton(deleteUserProcessor);
+
+        //services.AddScoped<IDeleteUserQueue>(options => deleteQueue);
+
+        var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
+
+        if (connectionString.NotEmpty())
+        {
+            services.AddSingleton(serviceProvider =>
+            {
+                var client = new ServiceBusClient(connectionString, new ServiceBusClientOptions
+                {
+                    TransportType = ServiceBusTransportType.AmqpWebSockets
+                });
+
+                return client;
+            });
+
+            services.AddSingleton(serviceProvider =>
+            {
+                var client = serviceProvider.GetRequiredService<ServiceBusClient>();
+                return client.CreateProcessor("user", new ServiceBusProcessorOptions
+                {
+                    MaxConcurrentCalls = 1
+                });
+            });
+
+            services.AddSingleton(serviceProvider =>
+            {
+                var client = serviceProvider.GetRequiredService<ServiceBusClient>();
+                return new DeleteUserQueue(client.CreateSender("user"));
+            });
+
+            services.AddScoped<IDeleteUserQueue>(serviceProvider =>
+            {
+                return serviceProvider.GetRequiredService<DeleteUserQueue>();
+            });
+        }
     }
 }

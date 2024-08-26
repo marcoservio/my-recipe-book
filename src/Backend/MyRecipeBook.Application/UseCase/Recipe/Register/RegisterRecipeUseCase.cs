@@ -1,22 +1,27 @@
 ﻿using AutoMapper;
+
+using MyRecipeBook.Application.Extensions;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.Recipe;
 using MyRecipeBook.Domain.Services.LoggedUser;
+using MyRecipeBook.Domain.Services.Storage;
+using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
 namespace MyRecipeBook.Application.UseCase.Recipe.Register;
 
-public class RegisterRecipeUseCase(IRecipeWriteOnlyRepository repository, ILoggedUser loggedUser, IUnitOfWork unitOfWork, IMapper mapper) : IRegisterRecipeUseCase
+public class RegisterRecipeUseCase(IRecipeWriteOnlyRepository repository, ILoggedUser loggedUser, IUnitOfWork unitOfWork, IMapper mapper, IBlobStorageService bobStorageService) : IRegisterRecipeUseCase
 {
     private readonly IRecipeWriteOnlyRepository _repository = repository;
     private readonly ILoggedUser _loggedUser = loggedUser;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
+    private readonly IBlobStorageService _bobStorageService = bobStorageService;
 
-    public async Task<ResponseRegisterRecipeJson> Execute(RequestRecipeJson request)
+    public async Task<ResponseRegisterRecipeJson> Execute(RequestRegisterRecipeFormData request)
     {
         Validate(request);
 
@@ -28,6 +33,20 @@ public class RegisterRecipeUseCase(IRecipeWriteOnlyRepository repository, ILogge
         var instructionsOrderned = OrderIngredients(request);
 
         recipe.Instructions = _mapper.Map<IList<Domain.Entities.Instruction>>(instructionsOrderned);
+
+        if(request.Image is not null)
+        {
+            var fileStream = request.Image.OpenReadStream();
+
+            (var isValidImage, var extension) = fileStream.ValidateAndGetImageExtension();
+
+            if (isValidImage.IsFalse())
+                throw new ErrorOnValidationException([ResourceMessagesException.ONLY_IMAGES_ACCEPTED]);
+
+            recipe.ImageIdentifier = $"{Guid.NewGuid()}{extension}";
+
+            await _bobStorageService.Upload(logged, fileStream, recipe.ImageIdentifier);
+        }
 
         await _repository.Add(recipe);
 

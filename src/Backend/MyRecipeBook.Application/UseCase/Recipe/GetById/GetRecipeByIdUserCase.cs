@@ -21,16 +21,13 @@ public class GetRecipeByIdUserCase(IMapper mapper, ILoggedUser loggedUser, IReci
     {
         var logged = await _loggedUser.User();
 
-        var recipe = await _repository.GetById(logged, recipeId);
-
-        if (recipe is null)
-            throw new NotFoundException(ResourceMessagesException.RECIPE_NOT_FOUND);
+        var recipe = await _repository.GetById(logged, recipeId) ?? throw new NotFoundException(ResourceMessagesException.RECIPE_NOT_FOUND);
 
         var response = _mapper.Map<ResponseRecipeJson>(recipe);
 
         if (recipe.ImageIdentifier.NotEmpty())
         {
-            var url = await _blobStorageService.GetImageUrl(logged, recipe.ImageIdentifier);
+            var url = await _blobStorageService.GetFileUrl(logged, recipe.ImageIdentifier);
 
             response.ImageUrl = url;
         }

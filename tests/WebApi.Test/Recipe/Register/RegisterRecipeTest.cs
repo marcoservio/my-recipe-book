@@ -28,7 +28,7 @@ public class RegisterRecipeTest(CustomWebApplicationFactory factory) : MyRecipeB
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier.Value);
 
-        var response = await DoPost(method: METHOD, request: request, token: token);
+        var response = await DoPostFormData(method: METHOD, request: request, token: token);
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -49,7 +49,7 @@ public class RegisterRecipeTest(CustomWebApplicationFactory factory) : MyRecipeB
 
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userIdentifier.Value);
 
-        var response = await DoPost(method: METHOD, request: request, token: token, culture: culture);
+        var response = await DoPostFormData(method: METHOD, request: request, token: token, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 

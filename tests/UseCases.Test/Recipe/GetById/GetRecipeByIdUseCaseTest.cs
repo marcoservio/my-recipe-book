@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Entities;
+﻿using CommonTestUtilities.BlobStorage;
+using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
@@ -6,6 +7,7 @@ using CommonTestUtilities.Repositories;
 using FluentAssertions;
 
 using MyRecipeBook.Application.UseCase.Recipe.GetById;
+using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
 
@@ -28,6 +30,7 @@ public class GetRecipeByIdUseCaseTest
         result.Should().NotBeNull();    
         result.Id.Should().NotBeNullOrWhiteSpace();
         result.Title.Should().Be(result.Title);
+        result.ImageUrl.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -50,7 +53,8 @@ public class GetRecipeByIdUseCaseTest
         var mapper = MapperBuilder.Build();
         var loggedUser = LoggedUserBuilder.Build(user);
         var repository = new RecipeReadOnlyRepositoryBuilder().GetById(user, recipe).Build();
+        var blobStorage = new BlobStorageServiceBuilder().GetFileUrl(user, recipe?.ImageIdentifier).Build();
 
-        return new GetRecipeByIdUserCase(mapper, loggedUser, repository);
+        return new GetRecipeByIdUserCase(mapper, loggedUser, repository, blobStorage);
     }
 }

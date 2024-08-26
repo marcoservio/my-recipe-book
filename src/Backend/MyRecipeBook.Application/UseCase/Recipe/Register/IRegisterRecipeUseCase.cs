@@ -5,5 +5,5 @@ namespace MyRecipeBook.Application.UseCase.Recipe.Register;
 
 public interface IRegisterRecipeUseCase
 {
-    Task<ResponseRegisterRecipeJson> Execute(RequestRecipeJson request);
+    Task<ResponseRegisterRecipeJson> Execute(RequestRegisterRecipeFormData request);
 }
