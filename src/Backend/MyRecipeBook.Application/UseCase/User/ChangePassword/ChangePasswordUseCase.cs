@@ -39,9 +39,7 @@ public class ChangePasswordUseCase(ILoggedUser iLoggedUser,
     {
         var result = new ChangePasswordValidator().Validate(request);
 
-        var currentPasswordEncripted = _passwordEncripter.Encrypt(request.Password);
-
-        if (currentPasswordEncripted.Equals(loggedUser.Password).IsFalse())
+        if (_passwordEncripter.IsValid(request.Password, loggedUser.Password).IsFalse())
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
 
         if (result.IsValid.IsFalse())
