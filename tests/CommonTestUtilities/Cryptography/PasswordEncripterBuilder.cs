@@ -7,6 +7,6 @@ public class PasswordEncripterBuilder
 {
     public static IPasswordEncripter Build()
     {
-        return new Sha512Encripter("acb1234");
+        return new BCryptNet();
     }
 }
