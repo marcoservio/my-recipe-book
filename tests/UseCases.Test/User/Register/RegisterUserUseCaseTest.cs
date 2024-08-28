@@ -7,6 +7,7 @@ using CommonTestUtilities.Tokens;
 using FluentAssertions;
 
 using MyRecipeBook.Application.UseCase.User.Register;
+using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
@@ -30,6 +31,7 @@ public class RegisterUserUseCaseTest
         result.Tokens.Should().NotBeNull();
         result.Name.Should().Be(request.Name);
         result.Tokens.AccessToken.Should().NotBeNullOrWhiteSpace();
+        result.Tokens.RefreshToken.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -69,10 +71,12 @@ public class RegisterUserUseCaseTest
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
         var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
+        var refreshTokenGenerator = RefreshTokenGeneratorBuilder.Build();
+        var tokenRepository = new TokenRepositoryBuilder().Build();
 
         if (email!.NotEmpty())
             readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-        return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), mapper, passwordEncripter, unitOfWork, accessTokenGenerator);
+        return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), mapper, passwordEncripter, unitOfWork, accessTokenGenerator, refreshTokenGenerator, tokenRepository);
     }
 }

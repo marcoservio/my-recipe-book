@@ -6,7 +6,6 @@ namespace CommonTestUtilities.Repositories;
 
 public class RecipeUpdateOnlyRepositoryBuilder
 {
-
     private readonly Mock<IRecipeUpdateOnlyRepository> _repository;
 
     public RecipeUpdateOnlyRepositoryBuilder() => _repository = new Mock<IRecipeUpdateOnlyRepository>();
