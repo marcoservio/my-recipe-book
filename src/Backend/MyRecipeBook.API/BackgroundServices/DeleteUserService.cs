@@ -31,14 +31,7 @@ public class DeleteUserService(IServiceProvider serviceProvider, ServiceBusProce
         await deleteUserUseCase.Execute(userIdentifier);
     }
 
-    private Task ExceptionReceivedHandler(ProcessErrorEventArgs _) => Task.CompletedTask;
+    private static Task ExceptionReceivedHandler(ProcessErrorEventArgs _) => Task.CompletedTask;
 
     ~DeleteUserService() => Dispose();
-
-    public override void Dispose()
-    {
-        base.Dispose();
-
-        GC.SuppressFinalize(this);
-    }
 }

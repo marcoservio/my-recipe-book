@@ -85,7 +85,7 @@ public class MyRecipeBookClassFixture(CustomWebApplicationFactory factory) : ICl
         _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
     }
 
-    private void AddToMultipartContent(MultipartFormDataContent multipartContent, string propertyName, IList list)
+    private static void AddToMultipartContent(MultipartFormDataContent multipartContent, string propertyName, IList list)
     {
         var itemType = list.GetType().GetGenericArguments().Single();
 
@@ -102,7 +102,7 @@ public class MyRecipeBookClassFixture(CustomWebApplicationFactory factory) : ICl
         }
     }
 
-    private void AddClassListToMuiltipartContent(MultipartFormDataContent multipartContent, string propertyName, IList list)
+    private static void AddClassListToMuiltipartContent(MultipartFormDataContent multipartContent, string propertyName, IList list)
     {
         var index = 0;
 

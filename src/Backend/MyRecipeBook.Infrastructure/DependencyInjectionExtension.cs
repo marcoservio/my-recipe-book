@@ -166,24 +166,6 @@ public static class DependencyInjectionExtension
 
     private static void AddQueue(IServiceCollection services, IConfiguration configuration)
     {
-        //var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
-
-        //var client = new ServiceBusClient(connectionString, new ServiceBusClientOptions()
-        //{
-        //    TransportType = ServiceBusTransportType.AmqpWebSockets
-        //});
-
-        //var deleteQueue = new DeleteUserQueue(client.CreateSender("user"));
-
-        //var deleteUserProcessor = new DeleteUserProcessor(client.CreateProcessor("user", new ServiceBusProcessorOptions
-        //{
-        //    MaxConcurrentCalls = 1
-        //}));
-
-        //services.AddSingleton(deleteUserProcessor);
-
-        //services.AddScoped<IDeleteUserQueue>(options => deleteQueue);
-
         var connectionString = configuration.GetValue<string>("Settings:ServiceBus:DeleteUserAccount");
 
         if (connectionString.NotEmpty())
