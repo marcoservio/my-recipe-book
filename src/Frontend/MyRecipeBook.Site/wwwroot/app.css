@@ -30,15 +30,6 @@ html, body {
 .button-login-google {
     background-color: #ffffff;
     border: 1px solid #dddddd;
-}
-
-.button-login {
-    background-color: #007bff;
-    color: white;
-    border: none;
-}
-
-.button-login-google {
     border: 0;
     font-size: 22px;
     color: black;
@@ -49,6 +40,9 @@ html, body {
 }
 
 .button-login {
+    background-color: #007bff;
+    color: white;
+    border: none;
     border: 0;
     font-size: 22px;
     color: white;
