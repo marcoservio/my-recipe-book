@@ -198,4 +198,13 @@
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>User don't have permission for access this resource.</value>
   </data>
+  <data name="PASSWORD_CHARACTERES" xml:space="preserve">
+    <value>Password has too much characteres</value>
+  </data>
+  <data name="EXPIRED_SESSION" xml:space="preserve">
+    <value>Your session has expired. Please log in again to continue.</value>
+  </data>
+  <data name="INVALID_SESSION" xml:space="preserve">
+    <value>We couldn't find a valid session. Please log in to access this feature</value>
+  </data>
 </root>

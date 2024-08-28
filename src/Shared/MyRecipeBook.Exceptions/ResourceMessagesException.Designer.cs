@@ -151,6 +151,15 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your session has expired. Please log in again to continue..
+        /// </summary>
+        public static string EXPIRED_SESSION {
+            get {
+                return ResourceManager.GetString("EXPIRED_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The step should be greater than zero..
         /// </summary>
         public static string GREATER_THAN_ZERO_INSTRUCTION_STEP {
@@ -205,6 +214,15 @@ namespace MyRecipeBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We couldn&apos;t find a valid session. Please log in to access this feature.
+        /// </summary>
+        public static string INVALID_SESSION {
+            get {
+                return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {
@@ -228,6 +246,15 @@ namespace MyRecipeBook.Exceptions {
         public static string ONLY_IMAGES_ACCEPTED {
             get {
                 return ResourceManager.GetString("ONLY_IMAGES_ACCEPTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password has too much characteres.
+        /// </summary>
+        public static string PASSWORD_CHARACTERES {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHARACTERES", resourceCulture);
             }
         }
         

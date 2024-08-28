@@ -174,9 +174,6 @@
   <data name="ONLY_IMAGES_ACCEPTED" xml:space="preserve">
     <value>Somente imagens (PNG, JPG, JPEG) são aceitas.</value>
   </data>
-  <data name="PASSWORD_CHARACTERES" xml:space="preserve">
-    <value>A palavra-passe deve ter mais de 6 caracteres.</value>
-  </data>
   <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
     <value>A nova palavra-passe é diferente da palavra-passe atual</value>
   </data>
@@ -197,5 +194,12 @@
   </data>
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>O usuário não tem permissão para acessar este recurso.</value>
+  </data>
+  <data name="PASSWORD_CHARACTERES" xml:space="preserve">
+    <value>A palavra-passe deve ter mais de 6 caracteres.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="EXPIRED_SESSION" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

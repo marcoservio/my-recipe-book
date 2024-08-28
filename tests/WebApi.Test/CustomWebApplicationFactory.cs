@@ -16,6 +16,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private MyRecipeBook.Domain.Entities.Recipe _recipe = default!;
     private MyRecipeBook.Domain.Entities.User _user = default!;
     private string _password = string.Empty;
+    private MyRecipeBook.Domain.Entities.RefreshToken _refreshToken = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -53,6 +54,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     public string GetPassword() => _password;
     public string GetName() => _user.Name;
     public Guid GetUserIdentifier() => _user.UserIdentifier;
+    public string GetRefreshToken() => _refreshToken.Value;
 
     public string GetRecipeId() => IdEncripterBuilder.Build().Encode(_recipe.Id);
     public string GetRecipeTitle() => _recipe.Title;
@@ -66,9 +68,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         _recipe = RecipeBuilder.Build(_user);
 
+        _refreshToken = RefreshTokenBuilder.Build(_user);
+
         dbContext.Users.Add(_user);
 
         dbContext.Recipes.Add(_recipe);
+
+        dbContext.RefreshTokens.Add(_refreshToken);
 
         dbContext.SaveChanges();
     }
