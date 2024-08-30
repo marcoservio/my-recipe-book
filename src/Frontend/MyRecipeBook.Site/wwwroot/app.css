@@ -33,7 +33,6 @@ html, body {
     border: 0;
     font-size: 22px;
     color: black;
-    background: #F6F6FB;
     width: 475px;
     height: 72px;
     border-radius: 25px;
@@ -41,12 +40,10 @@ html, body {
 
 .button-login {
     background-color: #007bff;
-    color: white;
     border: none;
     border: 0;
     font-size: 22px;
     color: white;
-    background: black;
     width: 475px;
     height: 72px;
     border-radius: 25px;
