@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY src/ .
 
-WORKDIR /Backend/MyRecipeBook.API
+WORKDIR ./Backend/MyRecipeBook.API
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out
