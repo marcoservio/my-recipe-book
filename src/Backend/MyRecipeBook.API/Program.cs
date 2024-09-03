@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 using MyRecipeBook.API.Converters;
 using MyRecipeBook.API.Extensions;
 using MyRecipeBook.API.Filters;
@@ -6,6 +8,7 @@ using MyRecipeBook.API.Token;
 using MyRecipeBook.Application;
 using MyRecipeBook.Domain.Security.Tokens;
 using MyRecipeBook.Infrastructure;
+using MyRecipeBook.Infrastructure.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +35,19 @@ builder.Services.AddBackgroundServices(builder.Configuration);
 
 builder.Services.AddExternalServices(builder.Configuration);
 
+builder.Services.AddHealthChecks().AddDbContextCheck<MyRecipeBookDbContext>();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 if (app.Environment.IsDevelopment())
 {
