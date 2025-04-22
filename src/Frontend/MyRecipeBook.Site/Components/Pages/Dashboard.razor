@@ -1,0 +1,15 @@
+﻿@page "/dashboard/{token}"
+
+@rendermode InteractiveServer
+
+<h3>Dashboard</h3>
+
+<p>Welcome to your dashboard! The token is below</p>
+
+<p style="font-weight: bold">@token</p>
+
+@code {
+    
+    [Parameter]
+    public string token { get; set; } = string.Empty;
+}

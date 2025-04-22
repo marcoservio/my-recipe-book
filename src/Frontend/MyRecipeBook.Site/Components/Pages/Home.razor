@@ -1,0 +1,47 @@
+﻿@page "/"
+
+@rendermode InteractiveServer
+
+@inject NavigationManager Navigation
+@using Microsoft.Extensions.Options;
+@using MyRecipeBook.Communication.Requests
+@using MyRecipeBook.Site;
+@inject IOptions<AppSettings> AppSettings
+@inject ILoginService _loginService
+@inject IRecipeService _recipeService
+@inject HttpClient _httpClient
+
+<PageTitle>Home</PageTitle>
+
+<div class="login-container">
+    <div class="image-section">
+        <img class="image-dashboard" src="images/mixing.png" />
+    </div>
+
+    <div class="login-section">
+        <div style="display: grid;">
+            <button class="button-login-google" @onclick="DoLoginGoogle">
+                <img src="images/googlelogo.svg" alt="Button Login Google Logo" />
+                <span>Login</span>
+            </button>
+
+            <button class="button-login">Login</button>
+
+            <p style="font-size: 18px; margin-top: 50px;">
+                <span style="color: black">
+                    Don’t have an account? <span style="color: #0065F2; font-weight: bold">Sign Up!</span>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private void DoLoginGoogle()
+    {
+        var apiEndpoint = $"{AppSettings.Value.BackendUrl}/login/google?returnUrl={Navigation.Uri}Dashboard";
+
+        Navigation.NavigateTo(apiEndpoint, forceLoad: true);
+    }
+}

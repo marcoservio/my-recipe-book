@@ -1,0 +1,62 @@
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #F5F5F5;
+}
+
+.login-container {
+    display: flex;
+    padding: 17px;
+}
+
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 50px;
+    text-align: center;
+}
+
+.image-mixing {
+    width: 100%;
+}
+
+.button-login-google {
+    background: #F6F6FB;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 30px;
+    font-size: 22px;
+    color: black;
+    width: 475px;
+    height: 72px;
+    margin: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+    .button-login-google img {
+        vertical-align: top;
+    }
+
+    .button-login-google span {
+        margin-left: 10px;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+.button-login {
+    background: black;
+    background-color: #007bff;
+    border: 0;
+    border-radius: 30px;
+    font-size: 22px;
+    color: white;
+    width: 475px;
+    height: 72px;
+    margin: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+}
