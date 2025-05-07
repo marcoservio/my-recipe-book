@@ -13,6 +13,7 @@ using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Domain.Services.Storage;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionsBase;
+using MyRecipeBook.Communication.Server.Requests;
 
 namespace MyRecipeBook.Application.UseCases.Recipe.Register;
 

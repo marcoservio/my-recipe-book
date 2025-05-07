@@ -193,12 +193,12 @@ public static class InfrastructureDependecyInjection
     {
         var apiKey = configuration.PostmarkApiKey();
 
-        if(apiKey.NotEmpty())
+        if (apiKey.NotEmpty())
         {
             var postmarkClient = new PostmarkClient(apiKey);
             var sendCodeReset = new SendCodeResetPassword(postmarkClient, configuration);
 
             services.AddScoped<ISendCodeResetPassword>(option => sendCodeReset);
-        }        
+        }
     }
 }

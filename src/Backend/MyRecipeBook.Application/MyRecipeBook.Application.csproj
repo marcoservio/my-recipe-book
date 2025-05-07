@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\MyRecipeBook.Communication.Server\MyRecipeBook.Communication.Server.csproj" />
     <ProjectReference Include="..\..\Shared\MyRecipeBook.Communication\MyRecipeBook.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\MyRecipeBook.Exceptions\MyRecipeBook.Exceptions.csproj" />
     <ProjectReference Include="..\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj" />

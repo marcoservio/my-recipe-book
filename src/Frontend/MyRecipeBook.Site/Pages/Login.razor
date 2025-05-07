@@ -1,0 +1,98 @@
+﻿@page "/"
+@layout LoginLayout
+@inject NavigationManager navigationManager
+@inject IAuthService authService
+@inject IJSRuntime JS
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
+<div class="container">
+    <div class="row min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <img src="images/mixing.png" class="img-fluid" alt="Mixing Image">
+        </div>
+        <div class="col-md-6">
+            <EditForm Model="@request" OnValidSubmit="@ValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input for="Email" class="form-control" @bind="@request.Email" placeholder="Email" />
+                            <ValidationMessage For="@(() => request.Email)" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" for="Password" class="form-control" @bind="@request.Password" placeholder="Password" />
+                            <ValidationMessage For="@(() => request.Password)" />
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-secondary no-hover">Login</button>
+                    </div>
+                </div>
+            </EditForm>
+            <div class="text-center">
+                <div class="mb-3">
+                    <button class="btn btn-outline-secondary no-hover" @onclick="DoLoginGoogle">
+                        <img src="images/googlelogo.svg" alt="Google Logo" class="google-logo">
+                        <span>Login with Google</span>
+                    </button>
+                </div>
+            </div>
+            <p class="mt-4">
+                <span>
+                    Don’t have an account?
+                    <span class="sing-up" @onclick="SignUp">Sign Up!</span>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    RequestLoginJson request = new RequestLoginJson();
+    string errorMessage = string.Empty;
+
+    private async Task ValidSubmit()
+    {
+        errorMessage = string.Empty;
+
+        try
+        {
+            await JS.InvokeVoidAsync("CursorWait");
+
+            await authService.Login(request);
+
+            navigationManager.NavigateTo("home");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Erro inesperado: " + ex.Message;
+        }
+        finally
+        {
+            await JS.InvokeVoidAsync("CursorDefault");
+        }
+    }
+
+    private void DoLoginGoogle()
+    {
+        var apiEndpoint = $"http://localhost:30080/login/google?returnUrl=home";
+
+        navigationManager.NavigateTo(apiEndpoint, forceLoad: true);
+    }
+
+    private void SignUp()
+    {
+        navigationManager.NavigateTo(nameof(SignUp).ToLower());
+    }
+}

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-statefulset
+  namespace: myrecipebook
+spec:
+  serviceName: mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql-container
+          image: mysql
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "root"
+            - name: MYSQL_DATABASE
+              value: "myrecipebook"
+          volumeMounts:
+            - name: volume-mysql
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: volume-mysql
+          persistentVolumeClaim:
+            claimName: mysql-volumeclaim

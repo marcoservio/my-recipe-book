@@ -1,33 +1,15 @@
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
 using MyRecipeBook.Site;
-using MyRecipeBook.Site.Components;
 using MyRecipeBook.Site.Extensions;
-using MyRecipeBook.Site.Service;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddLocalStorage();
+builder.Services.AddHandlers();
+builder.AddServices();
 
-builder.Services.AddHttpClient();
-
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("Backend"));
-
-builder.Services.AddRefitClientCustom<ILoginService>();
-builder.Services.AddRefitClientCustom<IUserService>();
-builder.Services.AddRefitClientCustom<IRecipeService>();
-
-var app = builder.Build();
-
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-app.UseAntiforgery();
-
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
-
-await app.RunAsync();
+await builder.Build().RunAsync();

@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Http;
 
 using MyRecipeBook.Communication.Requests;
+using MyRecipeBook.Communication.Server.Requests;
 using MyRecipeBook.Enums;
 
 namespace CommonTestUtilities.Requests;

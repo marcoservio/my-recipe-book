@@ -10,6 +10,7 @@ using MyRecipeBook.Application.UseCases.Recipe.Register;
 using MyRecipeBook.Application.UseCases.Recipe.Update;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
+using MyRecipeBook.Communication.Server.Requests;
 using MyRecipeBook.CrossCutting.Attributes;
 using MyRecipeBook.CrossCutting.Binders;
 

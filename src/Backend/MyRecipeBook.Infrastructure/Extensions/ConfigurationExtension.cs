@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
+using MyRecipeBook.Domain.Extensions;
 using MyRecipeBook.Enums;
 
 namespace MyRecipeBook.Infrastructure.Extensions;
@@ -23,7 +24,13 @@ public static class ConfigurationExtension
         var databaseType = configuration.DatabaseType();
 
         if (databaseType == Enums.DatabaseType.MySQL)
-            return configuration.GetConnectionString("ConnectionMySQLServer")!;
+        {
+            var connectionString = configuration.GetConnectionString("ConnectionMySQLServer")!;
+
+            return connectionString.Empty()
+               ? Environment.GetEnvironmentVariable("CONNECTION_MYSQL_SERVER") ?? string.Empty
+               : connectionString ?? string.Empty!;
+        }
         else
             return configuration.GetConnectionString("ConnectionSQLServer")!;
     }
@@ -75,7 +82,11 @@ public static class ConfigurationExtension
 
     public static string RedisConnectionString(this IConfiguration configuration)
     {
-        return configuration.GetValue<string>("Settings:Redis:ConnectionString")!;
+        var connectionString = configuration.GetValue<string>("Settings:Redis:ConnectionString");
+
+        return connectionString.Empty()
+            ? Environment.GetEnvironmentVariable("CONNECTION_REDIS") ?? string.Empty
+            : connectionString ?? string.Empty;
     }
 
     public static string PostmarkApiKey(this IConfiguration configuration)

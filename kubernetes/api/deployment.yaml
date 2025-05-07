@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  namespace: myrecipebook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -z mysql-clusterip 3306; do echo "Waiting for DB..."; sleep 2; done;']
+      containers:
+        - name: api
+          image: myrecipebook-api:latest
+          imagePullPolicy: Never
+          env:
+            - name: CONNECTION_MYSQL_SERVER
+              value: "Server=mysql-clusterip;Port=3306;Database=myrecipebook;Uid=root;Pwd=root;"
+            - name: CONNECTION_REDIS
+              value: "redis-clusterip:6379"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 30
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            periodSeconds: 30
+            failureThreshold: 5
+            initialDelaySeconds: 10
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+      
+      

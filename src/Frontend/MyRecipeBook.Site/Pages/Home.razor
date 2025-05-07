@@ -1,0 +1,20 @@
+﻿@page "/home"
+@inject IUserService userService
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<h2>@user?.Name</h2>
+<h2>@user?.Email</h2>
+
+@code {
+    ResponseUserProfileJson? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await userService.GetUserProfile();
+    }
+}

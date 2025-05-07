@@ -28,5 +28,14 @@ services:
       - mysql
       - redis
 
+  web:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "53536:8080"
+    depends_on:
+      - app
+
 volumes:
   mysql_data:

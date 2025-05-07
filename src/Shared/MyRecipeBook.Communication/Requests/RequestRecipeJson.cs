@@ -10,4 +10,6 @@ public class RequestRecipeJson
     public IList<string> Ingredients { get; set; } = [];
     public IList<RequestInstructionJson> Instructions { get; set; } = [];
     public IList<DishType> DishTypes { get; set; } = [];
+    public string FileName { get; set; } = string.Empty;
+    public string Base64File { get; set; } = string.Empty;
 }

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  namespace: myrecipebook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      initContainers:
+        - name: wait-for-api
+          image: curlimages/curl:latest
+          command: ['sh', '-c', 'until curl -sSf http://api-clusterip:8080/health; do echo "Waiting for API..."; sleep 2; done;']
+      containers:
+        - name: api
+          image: myrecipebook-site:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "250m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+      
+      
